@@ -1,0 +1,10 @@
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/ReactiveTaskManager
+    username: postgres
+    password: 1234
+  flyway:
+    enabled: false
+  sql:
+    init:
+      mode: always
