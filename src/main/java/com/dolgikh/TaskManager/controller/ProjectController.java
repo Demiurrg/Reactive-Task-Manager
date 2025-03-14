@@ -37,11 +37,7 @@ public class ProjectController {
 
     @PutMapping("/{id}")
     public Mono<ResponseEntity<Project>> updateProject(@PathVariable UUID id, @RequestBody Project project) {
-        return projectService.getProjectById(id)
-                .flatMap(existingProject -> {
-                    existingProject.setName(project.getName());
-                    return projectService.save(existingProject);
-                })
+        return projectService.update(id, project)
                 .map(ResponseEntity::ok)
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }

@@ -37,11 +37,7 @@ public class UserController {
 
     @PutMapping("/{id}")
     public Mono<ResponseEntity<User>> updateUser(@PathVariable UUID id, @RequestBody User user) {
-        return userService.getUserById(id)
-                .flatMap(existingUser -> {
-                    existingUser.setName(user.getName()); // Обновляем данные
-                    return userService.save(existingUser);
-                })
+        return userService.update(id, user)
                 .map(ResponseEntity::ok)
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }

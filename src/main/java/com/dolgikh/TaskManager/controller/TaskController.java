@@ -37,16 +37,11 @@ public class TaskController {
 
     @PutMapping("/{id}")
     public Mono<ResponseEntity<Task>> updateTask(@PathVariable UUID id, @RequestBody Task task) {
-        return taskService.getTaskById(id)
-                .flatMap(existingTask -> {
-                    existingTask.setTitle(task.getTitle());
-                    existingTask.setDescription(task.getDescription());
-                    existingTask.setStatus(task.getStatus());
-                    return taskService.save(existingTask);
-                })
+        return taskService.update(id, task)
                 .map(ResponseEntity::ok)
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
+
 
     @DeleteMapping("/{id}")
     public Mono<ResponseEntity<Void>> deleteTask(@PathVariable UUID id) {

@@ -26,6 +26,16 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
+    public Mono<Task> update(UUID id, Task task) {
+        return taskRepository.findById(id)
+                .flatMap(existingTask -> {
+                    existingTask.setTitle(task.getTitle());
+                    existingTask.setDescription(task.getDescription());
+                    existingTask.setStatus(task.getStatus());
+                    return taskRepository.save(existingTask);
+                });
+    }
+
     public Mono<Void> delete(UUID id) {
         return taskRepository.deleteById(id);
     }

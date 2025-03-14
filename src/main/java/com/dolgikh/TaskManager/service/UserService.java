@@ -26,6 +26,14 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public Mono<User> update(UUID id, User user) {
+        return userRepository.findById(id)
+                .flatMap(existingUser -> {
+                    existingUser.setName(user.getName());
+                    return userRepository.save(existingUser);
+                });
+    }
+
     public Mono<Void> delete(UUID id) {
         return userRepository.deleteById(id);
     }
