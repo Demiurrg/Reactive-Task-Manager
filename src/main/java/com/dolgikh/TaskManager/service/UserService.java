@@ -14,11 +14,11 @@ import java.util.UUID;
 public class UserService {
     private final UserRepository userRepository;
 
-    public Flux<User> getAllUsers() {
+    public Flux<User> getAll() {
         return userRepository.findAll();
     }
 
-    public Mono<User> getUserById(UUID id) {
+    public Mono<User> getById(UUID id) {
         return userRepository.findById(id);
     }
 

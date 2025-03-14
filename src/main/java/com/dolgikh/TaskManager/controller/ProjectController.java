@@ -18,32 +18,32 @@ public class ProjectController {
     private final ProjectService projectService;
 
     @GetMapping("/{id}")
-    public Mono<ResponseEntity<Project>> getProjectById(@PathVariable UUID id) {
-        return projectService.getProjectById(id)
+    public Mono<ResponseEntity<Project>> getById(@PathVariable UUID id) {
+        return projectService.getById(id)
                 .map(ResponseEntity::ok)
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
     @GetMapping
-    public Flux<Project> getAllProjects() {
-        return projectService.getAllProjects();
+    public Flux<Project> getAll() {
+        return projectService.getAll();
     }
 
     @PostMapping
-    public Mono<ResponseEntity<Project>> createProject(@RequestBody Project project) {
+    public Mono<ResponseEntity<Project>> create(@RequestBody Project project) {
         return projectService.save(project)
                 .map(savedProject -> ResponseEntity.status(HttpStatus.CREATED).body(savedProject));
     }
 
     @PutMapping("/{id}")
-    public Mono<ResponseEntity<Project>> updateProject(@PathVariable UUID id, @RequestBody Project project) {
+    public Mono<ResponseEntity<Project>> update(@PathVariable UUID id, @RequestBody Project project) {
         return projectService.update(id, project)
                 .map(ResponseEntity::ok)
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
-    public Mono<ResponseEntity<Void>> deleteProject(@PathVariable UUID id) {
+    public Mono<ResponseEntity<Void>> delete(@PathVariable UUID id) {
         return projectService.delete(id)
                 .then(Mono.just(ResponseEntity.noContent().build()));
     }

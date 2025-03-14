@@ -14,11 +14,11 @@ import java.util.UUID;
 public class TaskService {
     private final TaskRepository taskRepository;
 
-    public Mono<Task> getTaskById(UUID id) {
+    public Mono<Task> getById(UUID id) {
         return taskRepository.findById(id);
     }
 
-    public Flux<Task> getAllTasks() {
+    public Flux<Task> getAll() {
         return taskRepository.findAll();
     }
 

@@ -14,11 +14,11 @@ import java.util.UUID;
 public class ProjectService {
     private final ProjectRepository projectRepository;
 
-    public Mono<Project> getProjectById(UUID id) {
+    public Mono<Project> getById(UUID id) {
         return projectRepository.findById(id);
     }
 
-    public Flux<Project> getAllProjects() {
+    public Flux<Project> getAll() {
         return projectRepository.findAll();
     }
 
