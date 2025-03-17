@@ -26,11 +26,14 @@ public class ProjectService {
         return projectRepository.save(project);
     }
 
-    public Mono<Project> update(UUID id, Project project) {
+    public Mono<Project> update(UUID id, Project updatedProject) {
         return projectRepository.findById(id)
-                .flatMap(existingProject -> {
-                    existingProject.setName(project.getName());
-                    return projectRepository.save(existingProject);
+                .flatMap(_ -> {
+                    Project newProject = new Project(
+                            id,
+                            updatedProject.name()
+                    );
+                    return projectRepository.save(newProject);
                 });
     }
 

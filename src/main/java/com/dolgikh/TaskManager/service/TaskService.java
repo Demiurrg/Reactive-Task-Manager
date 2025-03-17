@@ -26,13 +26,17 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
-    public Mono<Task> update(UUID id, Task task) {
+    public Mono<Task> update(UUID id, Task updatedTask) {
         return taskRepository.findById(id)
-                .flatMap(existingTask -> {
-                    existingTask.setTitle(task.getTitle());
-                    existingTask.setDescription(task.getDescription());
-                    existingTask.setStatus(task.getStatus());
-                    return taskRepository.save(existingTask);
+                .flatMap(_ -> {
+                    Task newTask = new Task(
+                            id,
+                            updatedTask.title(),
+                            updatedTask.description(),
+                            updatedTask.status(),
+                            updatedTask.projectId()
+                    );
+                    return taskRepository.save(newTask);
                 });
     }
 
