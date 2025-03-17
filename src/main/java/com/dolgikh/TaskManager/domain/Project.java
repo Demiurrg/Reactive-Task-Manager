@@ -1,15 +1,18 @@
 package com.dolgikh.TaskManager.domain;
 
-import lombok.Data;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.UUID;
 
-@Data
 @Table("projects")
-public class Project {
-    @Id
-    private UUID id;
-    private String name;
-}
+public record Project(
+        @Id UUID id,
+
+        @NotBlank(message = "Название проекта не может быть пустым")
+        @Size(min = 3, max = 100, message = "Название проекта должно быть от 3 до 100 символов")
+        String name
+) {}
+
